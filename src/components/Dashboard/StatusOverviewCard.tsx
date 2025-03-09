@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from 'recharts';
 import { ServiceMetrics } from '@/utils/mockData';
 import { getStatusLabel } from '@/utils/formatters';
 
@@ -28,10 +28,6 @@ const StatusOverviewCard: React.FC<StatusOverviewCardProps> = ({ metrics }) => {
 
   const total = Object.values(metrics).reduce((sum, count) => sum + count, 0);
   
-  const renderCustomizedLabel = ({ name, percent }: any) => {
-    return `${name}: ${(percent * 100).toFixed(0)}%`;
-  };
-
   return (
     <Card className="col-span-4">
       <CardHeader>
@@ -54,26 +50,40 @@ const StatusOverviewCard: React.FC<StatusOverviewCardProps> = ({ metrics }) => {
 
         <div className="h-[300px] mt-6">
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[entry.status as keyof typeof COLORS]} />
-                ))}
-              </Pie>
+            <BarChart
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 25,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="name" 
+                angle={-45} 
+                textAnchor="end" 
+                height={60}
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis />
               <Tooltip 
                 formatter={(value: number) => [`${value} serviços`, '']}
                 labelFormatter={(label) => `${label}`}
               />
               <Legend />
-            </PieChart>
+              <Bar 
+                dataKey="value" 
+                name="Quantidade" 
+                fill="#8884d8" 
+                radius={[4, 4, 0, 0]}
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[entry.status as keyof typeof COLORS]} />
+                ))}
+              </Bar>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </CardContent>
