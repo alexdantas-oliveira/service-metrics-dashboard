@@ -31,6 +31,7 @@ export const getStatusLabel = (status: string): string => {
     suspended: 'Suspenso',
     negotiation: 'Em Negociação',
     negative: 'Negativado',
+    overdue: 'Em Atraso',
   };
   
   return statusMap[status] || status;

@@ -6,7 +6,8 @@ export type ServiceStatus =
   | 'blocked'
   | 'suspended'
   | 'negotiation'
-  | 'negative';
+  | 'negative'
+  | 'overdue';
 
 export interface Client {
   id: string;
@@ -29,6 +30,7 @@ export interface ServiceMetrics {
   suspended: number;
   negotiation: number;
   negative: number;
+  overdue: number;
 }
 
 export interface DailyServiceTrend {
@@ -37,7 +39,7 @@ export interface DailyServiceTrend {
 }
 
 // Generate random clients
-const statuses: ServiceStatus[] = ['active', 'canceled', 'reduced', 'blocked', 'suspended', 'negotiation', 'negative'];
+const statuses: ServiceStatus[] = ['active', 'canceled', 'reduced', 'blocked', 'suspended', 'negotiation', 'negative', 'overdue'];
 
 const generateRandomClients = (count: number): Client[] => {
   const clients: Client[] = [];
@@ -91,6 +93,7 @@ export const calculateMetrics = (clients: Client[]): ServiceMetrics => {
     suspended: 0,
     negotiation: 0,
     negative: 0,
+    overdue: 0,
   };
   
   clients.forEach(client => {

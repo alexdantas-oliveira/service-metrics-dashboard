@@ -34,6 +34,7 @@ const StatusOverviewCard: React.FC<StatusOverviewCardProps> = ({ metrics }) => {
     suspended: "#8B5CF6",  // roxo para serviços suspensos
     negotiation: "#3B82F6", // azul para serviços em negociação
     negative: "#B91C1C",   // vermelho escuro para serviços negativados
+    overdue: "#FB923C",    // laranja para serviços em atraso
   };
 
   // Calculando o total de serviços para mostrar porcentagens
@@ -49,7 +50,7 @@ const StatusOverviewCard: React.FC<StatusOverviewCardProps> = ({ metrics }) => {
       {/* Conteúdo principal do cartão */}
       <CardContent>
         {/* Grade com pequenos cards mostrando cada status e sua quantidade */}
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-4">
           {/* Para cada tipo de status, criamos um pequeno card */}
           {Object.entries(metrics).map(([status, count]) => (
             <div key={status} className="flex flex-col items-center justify-center p-3 rounded-lg bg-muted">
