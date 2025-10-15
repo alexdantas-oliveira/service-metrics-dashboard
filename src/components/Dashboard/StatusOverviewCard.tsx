@@ -34,7 +34,7 @@ const StatusOverviewCard: React.FC<StatusOverviewCardProps> = ({ metrics }) => {
     suspended: "#8B5CF6",  // roxo para serviços suspensos
     negotiation: "#3B82F6", // azul para serviços em negociação
     negative: "#B91C1C",   // vermelho escuro para serviços negativados
-    overdue: "#FB923C",    // laranja para serviços em atraso
+    overdue: "#FBBF24",    // amarelo para serviços em atraso
   };
 
   // Calculando o total de serviços para mostrar porcentagens

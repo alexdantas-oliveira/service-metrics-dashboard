@@ -27,7 +27,7 @@ const STATUS_COLORS = {
   suspended: "#8B5CF6",
   negotiation: "#3B82F6",
   negative: "#DC2626",
-  overdue: "#FB923C",
+  overdue: "#FBBF24",
 };
 
 const ServiceTrendChart: React.FC<ServiceTrendChartProps> = ({ data }) => {

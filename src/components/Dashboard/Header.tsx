@@ -25,9 +25,9 @@ const Header: React.FC<HeaderProps> = ({ onPeriodChange }) => {
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b mb-6 gap-4">
       <div>
-        <h1 className="text-2xl font-bold">Dashboard de Gerenciamento de Serviços</h1>
+        <h1 className="text-2xl font-bold">Dashboard de Gerenciamento</h1>
         <p className="text-muted-foreground">
-          Monitore os serviços e clientes em tempo real
+          Monitore os principais indicadores em tempo real
         </p>
       </div>
       
