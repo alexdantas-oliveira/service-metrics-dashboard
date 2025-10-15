@@ -33,6 +33,13 @@ export interface ServiceMetrics {
   overdue: number;
 }
 
+export interface FinancialMetrics {
+  mrr: number; // Receita Recorrente Mensal
+  ebitdaMargin: number; // Margem EBITDA em %
+  cac: number; // Custo de Aquisição de Cliente
+  operationalCashFlow: number; // Fluxo de Caixa Operacional
+}
+
 export interface DailyServiceTrend {
   date: string;
   activeCount: number;
@@ -129,7 +136,18 @@ export const generateServiceTrends = (): DailyServiceTrend[] => {
   return trends;
 };
 
+// Generate financial metrics
+export const generateFinancialMetrics = (): FinancialMetrics => {
+  return {
+    mrr: 125000 + Math.floor(Math.random() * 50000), // R$ 125k - 175k
+    ebitdaMargin: 25 + Math.floor(Math.random() * 20), // 25% - 45%
+    cac: 800 + Math.floor(Math.random() * 400), // R$ 800 - 1200
+    operationalCashFlow: 80000 + Math.floor(Math.random() * 40000), // R$ 80k - 120k
+  };
+};
+
 // Export mock data
 export const mockClients = generateRandomClients(100);
 export const mockMetrics = calculateMetrics(mockClients);
 export const mockServiceTrends = generateServiceTrends();
+export const mockFinancialMetrics = generateFinancialMetrics();

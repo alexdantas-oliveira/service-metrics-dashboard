@@ -5,16 +5,13 @@ import MetricCard from '@/components/Dashboard/MetricCard';
 import StatusOverviewCard from '@/components/Dashboard/StatusOverviewCard';
 import ServiceTrendChart from '@/components/Dashboard/ServiceTrendChart';
 import ClientsTable from '@/components/Dashboard/ClientsTable';
-import { mockClients, mockMetrics, mockServiceTrends } from '@/utils/mockData';
+import { mockClients, mockMetrics, mockServiceTrends, mockFinancialMetrics } from '@/utils/mockData';
+import { formatCurrency } from '@/utils/formatters';
 import { 
-  Users, 
-  CheckCircle, 
-  AlertCircle,
-  WifiOff,
-  FileWarning,
-  Activity,
-  BarChart4,
-  MessageSquareWarning
+  CircleDollarSign, 
+  TrendingUp, 
+  UserPlus,
+  Wallet
 } from 'lucide-react';
 
 const Index = () => {
@@ -34,40 +31,45 @@ const Index = () => {
     <div className="container mx-auto py-6 px-4 md:px-6">
       <Header onPeriodChange={setPeriod} />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <MetricCard 
-          title="Clientes em Dia" 
-          value={clientsInGoodStanding} 
-          description="Clientes com pagamentos em dia"
-          icon={<CheckCircle />}
-          className="border-l-4 border-l-green-500"
-        />
-        
-        <MetricCard 
-          title="Clientes em Atraso" 
-          value={clientsOverdueNotBlocked} 
-          description="Pendência sem bloqueio"
-          icon={<AlertCircle />}
-          className="border-l-4 border-l-yellow-500"
-          trend={{ value: 2.5, isPositive: false }}
-        />
-        
-        <MetricCard 
-          title="Serviços Ativos" 
-          value={mockMetrics.active} 
-          description="Total de serviços em uso"
-          icon={<Activity />}
-          className="border-l-4 border-l-blue-500"
-          trend={{ value: 4.2, isPositive: true }}
-        />
-        
-        <MetricCard 
-          title="Serviços Bloqueados" 
-          value={mockMetrics.blocked} 
-          description="Por inadimplência"
-          icon={<WifiOff />}
-          className="border-l-4 border-l-gray-500"
-        />
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold mb-4">Situação Financeira</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <MetricCard 
+            title="MRR" 
+            value={formatCurrency(mockFinancialMetrics.mrr)} 
+            description="Receita Recorrente Mensal"
+            icon={<CircleDollarSign />}
+            className="border-l-4 border-l-green-500"
+            trend={{ value: 8.5, isPositive: true }}
+          />
+          
+          <MetricCard 
+            title="Margem EBITDA" 
+            value={`${mockFinancialMetrics.ebitdaMargin}%`} 
+            description="Rentabilidade operacional"
+            icon={<TrendingUp />}
+            className="border-l-4 border-l-blue-500"
+            trend={{ value: 3.2, isPositive: true }}
+          />
+          
+          <MetricCard 
+            title="CAC" 
+            value={formatCurrency(mockFinancialMetrics.cac)} 
+            description="Custo de Aquisição de Cliente"
+            icon={<UserPlus />}
+            className="border-l-4 border-l-yellow-500"
+            trend={{ value: 5.1, isPositive: false }}
+          />
+          
+          <MetricCard 
+            title="Fluxo de Caixa Operacional" 
+            value={formatCurrency(mockFinancialMetrics.operationalCashFlow)} 
+            description="Geração de caixa mensal"
+            icon={<Wallet />}
+            className="border-l-4 border-l-purple-500"
+            trend={{ value: 12.3, isPositive: true }}
+          />
+        </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
