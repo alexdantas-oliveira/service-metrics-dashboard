@@ -42,7 +42,14 @@ export interface FinancialMetrics {
 
 export interface DailyServiceTrend {
   date: string;
-  activeCount: number;
+  active: number;
+  canceled: number;
+  reduced: number;
+  blocked: number;
+  suspended: number;
+  negotiation: number;
+  negative: number;
+  overdue: number;
 }
 
 // Generate random clients
@@ -115,21 +122,48 @@ export const generateServiceTrends = (): DailyServiceTrend[] => {
   const trends: DailyServiceTrend[] = [];
   const today = new Date();
   
-  // Start with a baseline of 100 active services
-  let activeCount = 100;
+  // Start with baseline counts for each status
+  let counts = {
+    active: 100,
+    canceled: 15,
+    reduced: 8,
+    blocked: 12,
+    suspended: 10,
+    negotiation: 5,
+    negative: 7,
+    overdue: 18,
+  };
   
   for (let i = 30; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     
-    // Randomly increase or decrease active count by 0-5
-    const change = Math.floor(Math.random() * 11) - 5;
-    activeCount += change;
-    activeCount = Math.max(70, activeCount); // Ensure it doesn't go below 70
+    // Randomly adjust each status count
+    Object.keys(counts).forEach(status => {
+      const change = Math.floor(Math.random() * 7) - 3; // -3 to +3
+      counts[status as keyof typeof counts] += change;
+      
+      // Set minimum values for each status
+      const minValues = {
+        active: 70,
+        canceled: 10,
+        reduced: 5,
+        blocked: 8,
+        suspended: 6,
+        negotiation: 3,
+        negative: 4,
+        overdue: 10,
+      };
+      
+      counts[status as keyof typeof counts] = Math.max(
+        minValues[status as keyof typeof minValues], 
+        counts[status as keyof typeof counts]
+      );
+    });
     
     trends.push({
       date: date.toISOString().split('T')[0],
-      activeCount,
+      ...counts,
     });
   }
   
